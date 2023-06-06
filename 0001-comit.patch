@@ -1,0 +1,51 @@
+From 35ce6fffbe8a0065d0ac1702970f2e013ac122e5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=E2=80=9CAdityaKansara8=E2=80=9D?=
+ <“adityakansara2003@gmail.com”>
+Date: Tue, 6 Jun 2023 23:32:06 +0530
+Subject: [PATCH] comit
+
+---
+ client3.py     | 7 +++++--
+ client_test.py | 2 +-
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/client3.py b/client3.py
+index 3fc09b7..bb34d4e 100644
+--- a/client3.py
++++ b/client3.py
+@@ -35,14 +35,17 @@ def getDataPoint(quote):
+     stock = quote['stock']
+     bid_price = float(quote['top_bid']['price'])
+     ask_price = float(quote['top_ask']['price'])
+-    price = bid_price
++    price = (bid_price+ask_price) / 2
+     return stock, bid_price, ask_price, price
+ 
+ 
+ def getRatio(price_a, price_b):
+     """ Get ratio of price_a and price_b """
+     """ ------------- Update this function ------------- """
+-    return 1
++    if (price_b == 0):
++        return
++    return price_a/price_b
++
+ 
+ 
+ # Main
+diff --git a/client_test.py b/client_test.py
+index af2bf26..c1e7572 100644
+--- a/client_test.py
++++ b/client_test.py
+@@ -15,7 +15,7 @@ class ClientTest(unittest.TestCase):
+       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+     ]
+     """ ------------ Add the assertion below ------------ """
+-
++    self.assertEqual(getDataPoint(quote), {quote['stock'], quote['top_bid']['price'], quote['top_ask']['price'], {quote['id'], quote['top_bid']['price'] + quote['top_ask']['price']}/2})
+ 
+   """ ------------ Add more unit tests ------------ """
+ 
+-- 
+2.40.0.windows.1
+
